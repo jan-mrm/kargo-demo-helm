@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kargo-demo
+  name: kargo-demo-helm
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: kargo-demo
+      app: kargo-demo-helm
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        app: kargo-demo
+        app: kargo-demo-helm
     spec:
       containers:
         - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -38,5 +38,5 @@ spec:
       volumes:
         - configMap:
             defaultMode: 420
-            name: kargo-demo-content
+            name: kargo-demo-helm-content
           name: content
